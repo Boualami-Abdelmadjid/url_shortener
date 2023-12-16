@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  server:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: shortener-server
+    command: npm start
+    volumes:
+      - ./back/:/usr/src/app
+      - ./back/node_modules:/usr/src/app/node_modules
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    env_file: ./back/.env
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo
+    container_name: shortener-db
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  client:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: shortener-front
+    command: npm run dev
+    volumes:
+      - ./front/:/usr/app
+      - ./front/node_modules:/usr/src/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    data-volume:
+    web-root:
+      driver: local
