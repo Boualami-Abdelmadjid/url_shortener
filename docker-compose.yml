@@ -37,7 +37,7 @@ services:
     container_name: shortener-front
     command: npm run dev
     volumes:
-      - ./front/:/usr/app
+      - ./front/:/usr/src/app/
       - ./front/node_modules:/usr/src/app/node_modules
     depends_on:
       - server
