@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
-
+import Footer from './components/Footer/Footer'
+import LoggedOutNav from './components/auth/LoggedOutNav'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -15,7 +16,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
+  
+  return (  
     <html lang="en">
       <body className={inter.className}>
       <header>
@@ -29,16 +31,14 @@ export default function RootLayout({
             <Link href='/developers' className='text-xl text-gray-700 transition-colors hover:text-violet-400'> Developers </Link>
             <Link href='/about' className='text-xl text-gray-700 transition-colors hover:text-violet-400'> About </Link>
           </div>
-          <div className='flex gap-8 items-center'>
-            <Link href='/login' className='text-xl text-gray-700 transition-colors hover:text-violet-400'> Sign In </Link>
-            <Link href='/signup' className='text-xl text-white bg-primary px-4 py-2 rounded-md transition-all hover:-translate-y-1 hover:bg-violet-500 active:translate-y-0'> Sign Up </Link>
-          </div>
+          <LoggedOutNav/>
         </div>
       <div>
 
       </div>
     </header>
     {children}
+    <Footer />
     </body>
     </html>
   )
