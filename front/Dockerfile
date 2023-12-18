@@ -10,8 +10,6 @@ COPY package*.json ./
 
 ###  Installing dependencies
 
-RUN npm run preinstall
-
 RUN npm install --silent
 
 

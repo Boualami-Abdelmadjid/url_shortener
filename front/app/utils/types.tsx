@@ -9,3 +9,10 @@ export interface RegisterBody {
     password:string,
     password2:string
 }
+
+export interface RequestResponseType {
+    status:string,
+    message:string
+}
+
+export type useRequestType = (body:LoginBody | RegisterBody) => RequestResponseType;

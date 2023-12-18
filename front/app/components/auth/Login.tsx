@@ -1,13 +1,17 @@
 "use client"
 import React,{useRef} from 'react'
 import Link from 'next/link'
-
+import { useRouter } from 'next/navigation'
 import { useLogin } from '@/app/hooks/auth'
-
+import { useDispatch } from '@/app/utils/redux/store'
+import { authSlice } from '@/app/utils/redux/store'
 export default function Login() {
+    const router = useRouter()
+    const dispatch = useDispatch()
     const emailRef = useRef<HTMLInputElement | null>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
     const rememberRef = useRef<HTMLInputElement>(null)
+    const {sendLoginRequest} = useLogin()
 
     const loginHandler = (e: React.SyntheticEvent) => {
         e.preventDefault()
@@ -21,7 +25,13 @@ export default function Login() {
                 password,
                 remember
             }
-            useLogin(body)
+            sendLoginRequest(body).then(res => {
+
+                if (res.status === 200) {
+                    dispatch(authSlice.actions.login({username:res.username}))
+                    router.push('/')
+                }
+            })
         }
     }
   return (

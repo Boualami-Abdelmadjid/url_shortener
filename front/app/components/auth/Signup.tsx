@@ -1,13 +1,15 @@
 "use client"
 import React,{useRef} from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useRegister } from '@/app/hooks/auth'
 
 export default function Signup() {
+    const router = useRouter()
     const emailRef = useRef<HTMLInputElement | null>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
     const password2Ref = useRef<HTMLInputElement>(null)
-
+    const {sendRegisterRequest} = useRegister()
     const SignUpHandler = (e: React.SyntheticEvent) => {
         e.preventDefault()
         const email = emailRef.current?.value
@@ -21,7 +23,10 @@ export default function Signup() {
                     password,
                     password2
                 }
-                useRegister(body)
+                sendRegisterRequest(body).then(res => {
+                    if (res.status === 200) {
+                        router.push('/')
+                    }})
             }else {
                 console.log('passwords do not match')
             }

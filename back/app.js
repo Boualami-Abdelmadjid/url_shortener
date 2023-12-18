@@ -1,12 +1,13 @@
 const path = require("path");
 
 const express = require("express");
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
+const cors = require('cors')
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
-
+const authRoutes = require('./routes/auth')
 
 const MONGODB_URI = process.env.ATLAS_URI;
 
@@ -17,7 +18,9 @@ const store = new MongoDBStore({
 });
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(cors({origin: "http://localhost:3000", credentials: true}))
 // app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
@@ -34,11 +37,12 @@ app.get("/admin", (req,res,next) =>{
     res.send('<h1>Hello, this the main page</h>')
 });
 
+// Routes
+app.use(authRoutes)
+
+
 mongoose
-  .connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(MONGODB_URI)
   .then((result) => {
     app.listen(process.env.PORT)
   }).then(res => {
