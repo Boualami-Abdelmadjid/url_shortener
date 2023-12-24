@@ -8,6 +8,9 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
 const authRoutes = require('./routes/auth')
+const apiRoutes = require('./routes/api')
+
+const User = require('./models/users')
 
 const MONGODB_URI = process.env.ATLAS_URI;
 
@@ -31,6 +34,18 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    return next();
+  }
+  User.findById(req.session.user._id)
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.log(err));
+});
+
 
 
 app.get("/admin", (req,res,next) =>{
@@ -39,6 +54,7 @@ app.get("/admin", (req,res,next) =>{
 
 // Routes
 app.use(authRoutes)
+app.use('/api/',apiRoutes)
 
 
 mongoose

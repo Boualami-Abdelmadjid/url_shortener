@@ -6,12 +6,12 @@ import {
   useSelector as useAppSelector,
 } from 'react-redux';
 
-export interface Auth {
+export interface AuthState {
   loggedIn:boolean,
   username:string | undefined
 }
 
-const initialState:Auth = {
+const initialState:AuthState = {
   loggedIn : false,
   username : undefined
 }

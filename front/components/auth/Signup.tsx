@@ -2,7 +2,7 @@
 import React,{useRef} from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { useRegister } from '@/app/hooks/auth'
+import { useRegister } from '@/hooks/auth'
 
 export default function Signup() {
     const router = useRouter()

@@ -2,9 +2,9 @@
 import React,{useRef} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useLogin } from '@/app/hooks/auth'
-import { useDispatch } from '@/app/utils/redux/store'
-import { authSlice } from '@/app/utils/redux/store'
+import { useLogin } from '@/hooks/auth'
+import { useDispatch } from '@/utils/redux/store'
+import { authSlice } from '@/utils/redux/store'
 export default function Login() {
     const router = useRouter()
     const dispatch = useDispatch()
