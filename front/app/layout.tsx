@@ -33,7 +33,7 @@ export default function RootLayout({
             <div className='flex gap-8'>
               <Link href='/' className='text-lg text-gray-700 transition-colors hover:text-violet-400'> Home </Link>
               <Link href='/shortener' className='text-lg text-gray-700 transition-colors hover:text-violet-400'> Shortener </Link>
-              <Link href='/about' className='text-lg text-gray-700 transition-colors hover:text-violet-400'> About </Link>
+              <Link href='/history' className='text-lg text-gray-700 transition-colors hover:text-violet-400'> History </Link>
             </div>
             <Nav/>
           </div>

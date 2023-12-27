@@ -15,6 +15,19 @@ const config: Config = {
       },
       colors:{
         'primary':'rgb(124 58 237)'
+      },
+      gridTemplateColumns: {
+        'history':'1fr 2rem'
+      },
+      animation: {
+        'drop': 'dropdown 1s linear',
+      },
+      keyframes: {
+        dropdown: {
+          '0%': { transform: 'translateY(-20px)' },
+          '50%': { transform: 'translateY(-6px)' },
+          '100%': { transform: 'translateY(0)' },
+        }
       }
     },
   },

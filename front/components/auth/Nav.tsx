@@ -2,9 +2,11 @@
 import React, {useEffect,useState,Suspense} from 'react'
 import Link from 'next/link'
 import { useSelector, useDispatch, authSlice } from '@/utils/redux/store'
+import { useRouter } from 'next/navigation'
 import { getCookie } from "cookies-next";
 
 export default function Nav() {
+  const router = useRouter()
   const [isClient, setIsClient] = useState(false)
   const dispatch = useDispatch()
   const loggedIn = useSelector(state => state.auth.loggedIn)
@@ -27,6 +29,7 @@ export default function Nav() {
     e.preventDefault()
     dispatch(authSlice.actions.logout())
     eraseCookie('sessionId')
+    window.location.href = '/'
  }
         
     return (

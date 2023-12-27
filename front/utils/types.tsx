@@ -15,4 +15,9 @@ export interface RequestResponseType {
     message:string
 }
 
+export type DomainsType = {
+    original:string,
+    short:string
+  }
+
 export type useRequestType = (body:LoginBody | RegisterBody) => RequestResponseType;

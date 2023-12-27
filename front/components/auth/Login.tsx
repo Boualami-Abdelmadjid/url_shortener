@@ -2,11 +2,13 @@
 import React,{useRef} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useLogin } from '@/hooks/auth'
 import { useDispatch } from '@/utils/redux/store'
 import { authSlice } from '@/utils/redux/store'
 export default function Login() {
     const router = useRouter()
+    const searchParams = useSearchParams()
     const dispatch = useDispatch()
     const emailRef = useRef<HTMLInputElement | null>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
@@ -29,7 +31,8 @@ export default function Login() {
 
                 if (res.status === 200) {
                     dispatch(authSlice.actions.login({username:res.username}))
-                    router.push('/')
+                    const nextPage = searchParams.get('next')
+                    window.location.href = nextPage ? nextPage : '/'
                 }
             })
         }

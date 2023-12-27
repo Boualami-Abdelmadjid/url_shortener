@@ -6,7 +6,7 @@ import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 export default function LandingMiddle() {
   return (
     <div className='mt-24 w-3/5 text-center grid gap-4'>
-        <h2 className='text-primary text-4xl text-bold text-center mb-2'>A short link,infinite possibilities</h2>
+        <h2 className='text-primary text-4xl text-bold text-center mb-2'>A short link, infinite possibilities</h2>
         <p className='text-gray-600 mb-12 max-w-xl mx-auto'>With the advanced intelligent link shortening service, you can customize your links and share them easily  </p>
         <div className='flex gap-4'>
             <div className='grid gap-2 text-blue-700 p-4 justify-items-center rounded-md drop-shadow-sm transition-all bg-transparent hover:bg-white hover:translate-y-1 '>
