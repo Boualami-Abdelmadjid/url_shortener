@@ -20,8 +20,6 @@ export default function History({domains}:{domains:DomainsType[]}) {
               <CopyButton domain={domain.short} />
             </p>
         </div>))) : <HistorySceleton />}
-    {}
-        
     </div>
 </div>
   )

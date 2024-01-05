@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { useLogin } from '@/hooks/auth'
 import { useDispatch } from '@/utils/redux/store'
 import { authSlice } from '@/utils/redux/store'
+import { notify_success,notify_error } from '@/hooks/tools'
 export default function Login() {
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -33,6 +34,8 @@ export default function Login() {
                     dispatch(authSlice.actions.login({username:res.username}))
                     const nextPage = searchParams.get('next')
                     window.location.href = nextPage ? nextPage : '/'
+                }else {
+                    notify_error(res.message)
                 }
             })
         }

@@ -22,3 +22,4 @@ exports.getDomains = (req,res,next) => {
     })
     
 }
+

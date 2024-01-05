@@ -4,11 +4,15 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const mongoose = require("mongoose");
+const expressWinston = require('express-winston')
+const {transports, format} = require('winston')
+const logger = require('./logger')
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
 const authRoutes = require('./routes/auth')
 const apiRoutes = require('./routes/api')
+const redirectRoutes = require('./routes/redirectRoutes')
 
 const User = require('./models/users')
 
@@ -20,6 +24,11 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 
+
+app.use(expressWinston.logger({
+  winstonInstance: logger,
+  statusLevels: true
+}))
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
@@ -55,6 +64,7 @@ app.get("/admin", (req,res,next) =>{
 // Routes
 app.use(authRoutes)
 app.use('/api/',apiRoutes)
+app.use('',redirectRoutes)
 
 
 mongoose

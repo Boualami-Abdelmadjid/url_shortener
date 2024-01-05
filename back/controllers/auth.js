@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 
 const User = require("../models/users");
 
+const logger = require('../logger')
+
 exports.postLogin = (req, res, next) => {
     const { email, password } = req.body;
     User.findOne({ email }).then(async (user) => {
@@ -13,10 +15,11 @@ exports.postLogin = (req, res, next) => {
             req.session.save((err) => {
             res.cookie('sessionId',req.session.id)
             res.json({status:200,username:email,message:'Logged In Successfully'});
+            logger.info(`${user.email} connected`)
             });
         }
         } else {
-        console.log("No user with this email");
+        logger.error("No user with this email");
         res.status(500).json({status:500,message:'No user with this email'})
     }
     });
